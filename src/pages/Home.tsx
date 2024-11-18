@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -8,38 +8,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-
-type Character = {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  image: string;
-};
+import { UseCharacterStore } from "@/services/UseApi";
 
 function App() {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [filter, setFilter] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<string>("");
+
+  const { characters, error, loading, fetchCharacters } = UseCharacterStore(
+    (set) => set
+  );
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch characters");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCharacters(data.results);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+    fetchCharacters();
+  }, [fetchCharacters]);
 
   const filteredCharacters = characters.filter((character) =>
     character.name.toLowerCase().includes(filter.toLowerCase())
@@ -50,26 +30,25 @@ function App() {
     return <div className="text-center mt-8 text-red-500">Error: {error}</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">
+    <div className=" mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center text-white">
         Rick and Morty Explorer
       </h1>
-      <div className="relative max-w-sm mx-auto mb-4">
+      <div className="relative max-w-sm mx-auto mb-8  ">
         <Input
           type="text"
           placeholder="Filter characters..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="pr-7"
+          className="pr-7 text-white"
         />
         <span className="absolute inset-y-0 right-2 flex items-center text-gray-500">
           🔍
         </span>
       </div>
-
-      <div className="md:mx-32 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="sm:mx-10 lg:mx-20 xl:mx-44  grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredCharacters.map((character) => (
-          <Card key={character.id}>
+          <Card key={character.id} className="shadow-md bg-card">
             <CardHeader>
               <img
                 src={character.image}
@@ -78,7 +57,9 @@ function App() {
               />
             </CardHeader>
             <CardContent>
-              <CardTitle className="mb-2 text-2xl">{character.name}</CardTitle>
+              <CardTitle className="mb-2 text-2xl text-gray-950">
+                {character.name}
+              </CardTitle>
               <CardDescription>
                 <Badge
                   className="text-white"
@@ -90,7 +71,12 @@ function App() {
                 >
                   {character.status}
                 </Badge>
-                <span className="ml-2">{character.species}</span>
+                <Badge variant={"outline"} className="ml-2 text-white">
+                  {character.species}
+                </Badge>
+                <Badge variant={"outline"} className="ml-1 text-white mt-2">
+                  {character.location.name}
+                </Badge>
               </CardDescription>
             </CardContent>
           </Card>

@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { DATA_HEADER } from "@/data/HeaderData";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 w-full bg-background border-b z-50">
+    <header className="sticky top-0 w-full bg-header z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:max-w-6xl xl:px-0">
         <div className="flex items-center justify-between h-16 ">
           <div className="flex items-center">
@@ -27,23 +28,19 @@ export default function Header() {
           </div>
           <div>
             <nav className="hidden md:block ml-10">
-              <ul className="flex space-x-4">
-                <li>
-                  <Link
-                    to="/"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/addcharacter"
-                    className="text-muted-foreground hover:text-primary"
-                  >
-                    Add
-                  </Link>
-                </li>
+              <ul className="flex space-x-7">
+                {DATA_HEADER.map((data) => {
+                  return (
+                    <li key={`${data.path}-${data.title}`}>
+                      <Link
+                        to={data.path}
+                        className=" hover:text-primary text-[20px]"
+                      >
+                        {data.title}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>

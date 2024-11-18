@@ -10,13 +10,16 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        card: "#526D82",
         primary: "#34D399",
+        bg: "#27374D",
+        header: "#DDE6ED",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        // card: {
+        //   DEFAULT: "hsl(var(--card))",
+        //   foreground: "hsl(var(--card-foreground))",
+        // },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
