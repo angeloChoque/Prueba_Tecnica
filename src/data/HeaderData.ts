@@ -5,11 +5,7 @@ interface DATA_HEADER {
 
 export const DATA_HEADER: DATA_HEADER[] = [
   {
-    title: "Home",
+    title: "",
     path: "/",
-  },
-  {
-    title: "Add",
-    path: "/addcharacter",
   },
 ];

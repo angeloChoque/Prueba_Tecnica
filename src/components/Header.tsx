@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { DATA_HEADER } from "@/data/HeaderData";
-import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -43,15 +41,6 @@ export default function Header() {
                 })}
               </ul>
             </nav>
-          </div>
-          <div className="flex items-center">
-            <Button variant="outline" className="ml-4">
-              Usuario
-            </Button>
-            <Button variant="ghost" size="icon" className="md:hidden ml-2">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Abrir menú</span>
-            </Button>
           </div>
         </div>
       </div>

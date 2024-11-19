@@ -25,7 +25,6 @@ export const UseCharacterStore = create<CharacterStore>()(
             return res.json();
           })
           .then((data) => {
-            console.log(data.results); // Verifica los datos
             set({ characters: data.results, loading: false });
           })
           .catch((err) => {
