@@ -32,7 +32,7 @@ export default function Login() {
     if (validateUser(data.email, data.password)) {
       setErrorMessage(null);
       alert("logging in");
-      navigator("/");
+      navigator("/home");
     } else {
       setErrorMessage("Invalid email or password.");
     }

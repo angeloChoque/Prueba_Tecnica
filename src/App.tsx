@@ -1,17 +1,25 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import Layout from "@/pages/Layout";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import AddCharacter from "@/pages/AddCharacter";
 import Register from "@/pages/Register";
 
-const Router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
       {
         index: true,
+        element: <Navigate to="/login" />,
+      },
+      {
+        path: "/home",
         element: <Home />,
       },
       {
@@ -31,11 +39,7 @@ const Router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={Router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
