@@ -14,13 +14,13 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/UseRegister";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormLogin } from "@/types/form";
+import { FormData } from "@/types/form";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { register, handleSubmit } = useForm<FormLogin>();
+  const { register, handleSubmit } = useForm<FormData>();
   const navigator = useNavigate();
   const { validateUser } = useAuthStore();
 
@@ -28,7 +28,7 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<FormLogin> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     if (validateUser(data.email, data.password)) {
       setErrorMessage(null);
       alert("logging in");

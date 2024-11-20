@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+
 import { UseCharacterStore } from "@/services/UseApi";
 
-function App() {
+import FormAdd from "@/components/form/FormAdd";
+import FormEdit from "@/components/form/FormEdit";
+
+export default function Home() {
   const [filter, setFilter] = useState<string>("");
 
-  const { characters, error, loading, fetchCharacters } = UseCharacterStore(
-    (set) => set
-  );
+  const { characters, error, loading, fetchCharacters } = UseCharacterStore();
 
   useEffect(() => {
     fetchCharacters();
@@ -49,12 +50,8 @@ function App() {
           </span>
         </div>
         <div className="flex gap-2 ml-2">
-          <Button variant="default" className="text-white">
-            Add
-          </Button>
-          <Button variant="destructive" className="text-white">
-            Edit
-          </Button>
+          <FormAdd />
+          <FormEdit />
         </div>
       </div>
       <div className="sm:mx-10 lg:mx-20 xl:mx-44 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,11 +79,11 @@ function App() {
                 >
                   {character.status}
                 </Badge>
-                <Badge variant={"outline"} className="ml-2 text-white">
+                <Badge variant="outline" className="ml-2 text-white">
                   {character.species}
                 </Badge>
-                <Badge variant={"outline"} className="ml-1 text-white mt-2">
-                  {character.location.name}
+                <Badge variant="outline" className="ml-1 text-white mt-2">
+                  {character.gender}
                 </Badge>
               </CardDescription>
             </CardContent>
@@ -101,5 +98,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
