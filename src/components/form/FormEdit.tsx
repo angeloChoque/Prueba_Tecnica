@@ -20,19 +20,18 @@ export default function FormEdit() {
     null
   );
 
-  const { characters, addCharacters } = UseCharacterStore();
-  const { register, handleSubmit, setValue } = useForm<Character>();
+  const { characters, updateCharacter } = UseCharacterStore();
+  const { register, handleSubmit, setValue, reset } = useForm<Character>();
 
-  // Filtrar personajes por el término de búsqueda
   const filteredCharacters = characters.filter((character) =>
     character.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const onSubmit: SubmitHandler<Character> = (data) => {
     if (selectedCharacter) {
-      // Aquí puedes implementar la lógica para actualizar el personaje
-      addCharacters(data);
+      updateCharacter(selectedCharacter.id, data);
     }
+    reset();
     setIsModalOpen(false);
   };
 
@@ -47,7 +46,7 @@ export default function FormEdit() {
     setValue("species", character.species);
     setValue("gender", character.gender);
     setValue("image", character.image);
-    setSearchTerm(""); // Limpiar búsqueda al seleccionar
+    setSearchTerm("");
   };
 
   return (
@@ -62,8 +61,6 @@ export default function FormEdit() {
           <DialogHeader>
             <DialogTitle>Edit Character</DialogTitle>
           </DialogHeader>
-
-          {/* Buscador encima del formulario */}
           <div className="relative">
             <Input
               type="text"
@@ -71,8 +68,6 @@ export default function FormEdit() {
               value={searchTerm}
               onChange={handleSearchChange}
             />
-
-            {/* Mostrar resultados de búsqueda */}
             {searchTerm && filteredCharacters.length > 0 && (
               <ul className="absolute max-h-32 overflow-y-auto border border-gray-300 rounded-md p-2 bg-white w-full z-10">
                 {filteredCharacters.map((character) => (

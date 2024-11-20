@@ -8,6 +8,7 @@ type CharacterStore = {
   error: string | null;
   fetchCharacters: () => void;
   addCharacters: (character: Character) => void;
+  updateCharacter: (id: number, updatedCharacter: Character) => void;
 };
 
 export const UseCharacterStore = create<CharacterStore>()(
@@ -43,6 +44,13 @@ export const UseCharacterStore = create<CharacterStore>()(
             ...state.characters,
             { ...character, id: state.characters.length + 1 },
           ],
+        }));
+      },
+      updateCharacter: (id, updatedCharacter) => {
+        set((state) => ({
+          characters: state.characters.map((character) =>
+            character.id === id ? updatedCharacter : character
+          ),
         }));
       },
     }),
